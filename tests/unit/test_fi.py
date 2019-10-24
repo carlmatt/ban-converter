@@ -1,5 +1,5 @@
 import unittest
-from utils.common import convert_bban_to_iban, convert_iban_to_bban
+from ban_converter import convert_bban_to_iban, convert_iban_to_bban
 
 
 class ConvertBbanToIbanTestCase(unittest.TestCase):
