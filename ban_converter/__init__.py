@@ -1,30 +1,33 @@
-__version__ = '0.0.1'
+__version__ = '0.0.2'
 
-def convert_bban_to_iban(bban: str) -> str:
+
+def convert_bban_to_iban(bban: str, country: str = 'FI') -> str:
     """
     Convert an account number from BBAN to IBAN format.
     :param bban: Account number in BBAN format
+    :param country: Account country
     :return: Account number in IBAN format
+    :raises ValueError: If BBAN is too short
     """
     len_orig = len(bban)
-    bban_repl = bban.replace('-', '')
-    len_repl = len(bban_repl)
+    bban_no_dash = bban.replace('-', '')
+    len_bban_no_dash = len(bban_no_dash)
     zeros = '0000000'
 
     if len_orig == 16 and bban.find('-') == -1:
-        accno_machinelang = bban[0:4] + bban[5:8] + bban[9:]
-    elif bban_repl[0] in ('4', '5'):
-        if 8 <= len_repl <= 13:
-            accno_machinelang = bban_repl[0:7] + zeros[:(14 - len_repl)] + bban_repl[7:]
+        accno_machine_language = bban[0:4] + bban[5:8] + bban[9:]
+    elif bban_no_dash[0] in ('4', '5'):
+        if 8 <= len_bban_no_dash <= 13:
+            accno_machine_language = bban_no_dash[0:7] + zeros[:(14 - len_bban_no_dash)] + bban_no_dash[7:]
         else:
-            accno_machinelang = bban_repl
-    elif 7 <= len_repl <= 13:
-        accno_machinelang = bban_repl[0:6] + zeros[:(14 - len_repl)] + bban_repl[6:]
+            accno_machine_language = bban_no_dash
+    elif 7 <= len_bban_no_dash <= 13:
+        accno_machine_language = bban_no_dash[0:6] + zeros[:(14 - len_bban_no_dash)] + bban_no_dash[6:]
     else:
         raise ValueError('BBAN is too short')
 
-    checksum = 98 - int(accno_machinelang + '151800') % 97
-    iban = 'FI' + (zeros + str(checksum))[-2:] + accno_machinelang
+    checksum = 98 - int(accno_machine_language + '151800') % 97
+    iban = country + (zeros + str(checksum))[-2:] + accno_machine_language
     return iban
 
 
@@ -33,6 +36,7 @@ def convert_iban_to_bban(iban: str) -> str:
     Convert an account number from IBAN to BBAN manchine language format.
     :param iban: Account number in IBAN format
     :return: Account number in BBAN machine language format
+    :raises ValueError: If IBAN is not in Finnish format
     """
     len_iban = len(iban)
     country_iban = iban[:2]
