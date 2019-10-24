@@ -1,3 +1,13 @@
+# Common
+.DS_Store
+
+# pipenv
+Pipfile
+Pipfile.lock
+
+# IDE
+.idea
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -24,6 +34,7 @@ wheels/
 .installed.cfg
 *.egg
 MANIFEST
+.pypirc
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -102,6 +113,3 @@ venv.bak/
 
 # mypy
 .mypy_cache/
-
-# IDE
-.idea

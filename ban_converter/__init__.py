@@ -1,3 +1,5 @@
+__version__ = '0.0.1'
+
 def convert_bban_to_iban(bban: str) -> str:
     """
     Convert an account number from BBAN to IBAN format.
