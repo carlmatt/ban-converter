@@ -15,19 +15,19 @@ def convert_bban_to_iban(bban: str, country: str = 'FI') -> str:
     zeros = '0000000'
 
     if len_orig == 16 and bban.find('-') == -1:
-        accno_machine_language = bban[0:4] + bban[5:8] + bban[9:]
+        account_number = bban[0:4] + bban[5:8] + bban[9:]
     elif bban_no_dash[0] in ('4', '5'):
         if 8 <= len_bban_no_dash <= 13:
-            accno_machine_language = bban_no_dash[0:7] + zeros[:(14 - len_bban_no_dash)] + bban_no_dash[7:]
+            account_number = bban_no_dash[0:7] + zeros[:(14 - len_bban_no_dash)] + bban_no_dash[7:]
         else:
-            accno_machine_language = bban_no_dash
+            account_number = bban_no_dash
     elif 7 <= len_bban_no_dash <= 13:
-        accno_machine_language = bban_no_dash[0:6] + zeros[:(14 - len_bban_no_dash)] + bban_no_dash[6:]
+        account_number = bban_no_dash[0:6] + zeros[:(14 - len_bban_no_dash)] + bban_no_dash[6:]
     else:
         raise ValueError('BBAN is too short')
 
-    checksum = 98 - int(accno_machine_language + '151800') % 97
-    iban = country + (zeros + str(checksum))[-2:] + accno_machine_language
+    checksum = 98 - int(account_number + '151800') % 97
+    iban = country + (zeros + str(checksum))[-2:] + account_number
     return iban
 
 

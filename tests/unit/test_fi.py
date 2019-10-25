@@ -1,8 +1,8 @@
-import unittest
+from unittest import TestCase
 from ban_converter import convert_bban_to_iban, convert_iban_to_bban
 
 
-class ConvertBbanToIbanTestCase(unittest.TestCase):
+class ConvertBbanToIbanTestCase(TestCase):
     """ Tests for BBAN to IBAN converter """
 
     def test_bban_iban_converter_1(self):
@@ -21,7 +21,7 @@ class ConvertBbanToIbanTestCase(unittest.TestCase):
         self.assertEqual(iban, 'FI8815971200000003')
 
 
-class ConvertIbanToBbanTestCase(unittest.TestCase):
+class ConvertIbanToBbanTestCase(TestCase):
     """ Tests for IBAN to BBAN converter """
 
     def test_iban_bban_converter_1(self):
