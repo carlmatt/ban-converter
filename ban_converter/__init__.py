@@ -2,8 +2,8 @@
 
 __version__ = '0.0.2'
 
-import bban_to_iban as bti
-import iban_to_bban as itb
+from ban_converter import bban_to_iban as bti
+from ban_converter import iban_to_bban as itb
 
 
 def convert_bban_to_iban(bban: str, country_code: str = 'FI') -> str:
